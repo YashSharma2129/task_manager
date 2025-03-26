@@ -37,7 +37,7 @@ PORT=5000
 
 4. Start the server:
 ```bash
-node server.js
+npm start
 ```
 
 ### Frontend Setup
@@ -58,6 +58,13 @@ npm start
 ```
 
 The application will be available at http://localhost:3000
+
+### Available Frontend Scripts
+
+- `npm start`: Runs the app in development mode
+- `npm test`: Launches the test runner
+- `npm run build`: Builds the app for production
+- `npm run eject`: Removes the single build dependency
 
 ## API Documentation
 
@@ -106,28 +113,6 @@ The application will be available at http://localhost:3000
 - URL Parameters: id (task ID)
 - Response: Success message
 
-### Testing with Postman
-
-1. Import the following cURL commands into Postman:
-
-```bash
-# Get all tasks
-curl http://localhost:5000/tasks
-
-# Create a task
-curl -X POST http://localhost:5000/tasks \
-  -H "Content-Type: application/json" \
-  -d '{"title":"Test Task","description":"Test Description"}'
-
-# Update a task
-curl -X PUT http://localhost:5000/tasks/task_id \
-  -H "Content-Type: application/json" \
-  -d '{"completed":true}'
-
-# Delete a task
-curl -X DELETE http://localhost:5000/tasks/task_id
-```
-
 ## Error Handling
 
 The API returns appropriate HTTP status codes:
@@ -138,3 +123,13 @@ The API returns appropriate HTTP status codes:
 - 500: Server error
 
 Each error response includes a message explaining the error.
+
+## Learn More
+
+- [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started)
+- [React documentation](https://reactjs.org/)
+- [Code Splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- [Analyzing the Bundle Size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- [Making a Progressive Web App](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- [Advanced Configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- [Deployment](https://facebook.github.io/create-react-app/docs/deployment)
