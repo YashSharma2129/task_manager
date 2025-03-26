@@ -7,13 +7,28 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Configure CORS with specific options
 app.use(cors({
-  origin: ['https://frontend-b8t3rq6jk-yashsharma2129s-projects.vercel.app', 'http://localhost:3000'],
+  origin: [
+    'https://frontend-mf4ggpm4y-yashsharma2129s-projects.vercel.app',
+    'https://frontend-b8t3rq6jk-yashsharma2129s-projects.vercel.app',
+    'http://localhost:3000'
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'],
+  credentials: true,
+  maxAge: 86400 // 24 hours
 }));
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && origin.includes('yashsharma2129s-projects.vercel.app')) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
 
 app.use(express.json());
 
