@@ -41,6 +41,14 @@ function App() {
     },
   });
 
+  const handleError = (message) => {
+    setError(message);
+  };
+
+  const clearError = () => {
+    setError("");
+  };
+
   const fetchTasks = useCallback(async () => {
     try {
       const result = await axios.get(API_URL);
@@ -49,7 +57,7 @@ function App() {
     } catch (err) {
       handleError("Failed to fetch tasks");
     }
-  }, [clearError, handleError]);
+  }, []);
 
   useEffect(() => {
     fetchTasks();
@@ -122,14 +130,6 @@ function App() {
   const resetTaskForm = () => {
     setNewTask({ title: "", description: "" });
     clearError();
-  };
-
-  const handleError = (message) => {
-    setError(message);
-  };
-
-  const clearError = () => {
-    setError("");
   };
 
   const showSnackbar = (message, severity = "success") => {

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import { Typography, useTheme } from '@mui/material'; // Changed from @material-ui/core
+
 import {
   List,
   ListItem,
   ListItemText,
   IconButton,
   Paper,
-  Typography,
   Checkbox,
   Tooltip,
   Fade,
@@ -47,7 +48,7 @@ const TaskList = ({ tasks, onToggleComplete, onDelete, onReorder }) => {
         task.description.toLowerCase().includes(filter.search.toLowerCase());
       const matchesCategory = filter.category === 'all' || task.category === filter.category;
       const matchesPriority = filter.priority === 'all' || task.priority === filter.priority;
-      const matchesTab = activeTab === 'all' || 
+      const matchesTab = activeTab === 'all' ||
         (activeTab === 'today' && task.dueDate && isToday(new Date(task.dueDate))) ||
         (activeTab === 'upcoming' && task.dueDate && isFuture(new Date(task.dueDate))) ||
         (activeTab === 'overdue' && task.dueDate && isPast(new Date(task.dueDate)) && !task.completed) ||
@@ -69,16 +70,23 @@ const TaskList = ({ tasks, onToggleComplete, onDelete, onReorder }) => {
 
   if (tasks.length === 0) {
     return (
-      <Paper 
-        elevation={3} 
-        sx={{ 
-          p: 5, 
+      <Paper
+        elevation={3}
+        sx={{
+          p: 5,
           textAlign: 'center',
           background: 'linear-gradient(45deg, #f3f3f3 30%, #ffffff 90%)',
           borderRadius: 2
         }}
       >
-        <Typography variant="h6" color="textSecondary">No tasks yet. Add one above!</Typography>
+        <Typography
+          variant="h6"
+          sx={{
+            color: (theme) => theme.palette.mode === 'dark' ? 'text.primary' : 'text.secondary'
+          }}
+        >
+          No tasks yet. Add one above!
+        </Typography>
       </Paper>
     );
   }
@@ -86,8 +94,8 @@ const TaskList = ({ tasks, onToggleComplete, onDelete, onReorder }) => {
   return (
     <Paper elevation={3} sx={{ p: 3, borderRadius: 2 }}>
       <Box sx={{ mb: 3 }}>
-        <Tabs 
-          value={activeTab} 
+        <Tabs
+          value={activeTab}
           onChange={(e, newValue) => setActiveTab(newValue)}
           variant="scrollable"
           scrollButtons="auto"
@@ -195,7 +203,7 @@ const TaskList = ({ tasks, onToggleComplete, onDelete, onReorder }) => {
                         edge="start"
                         checked={task.completed}
                         onChange={() => onToggleComplete(task)}
-                        sx={{ 
+                        sx={{
                           mr: 2,
                           color: priorities[task.priority].color,
                           '&.Mui-checked': {
@@ -240,8 +248,8 @@ const TaskList = ({ tasks, onToggleComplete, onDelete, onReorder }) => {
                                   isToday(new Date(task.dueDate))
                                     ? 'primary'
                                     : isPast(new Date(task.dueDate))
-                                    ? 'error'
-                                    : 'default'
+                                      ? 'error'
+                                      : 'default'
                                 }
                                 variant="outlined"
                                 sx={{ borderRadius: '4px' }}
@@ -270,9 +278,9 @@ const TaskList = ({ tasks, onToggleComplete, onDelete, onReorder }) => {
               ))}
               {provided.placeholder}
               {filteredTasks.length === 0 && (
-                <Typography 
-                  textAlign="center" 
-                  color="text.secondary" 
+                <Typography
+                  textAlign="center"
+                  color="text.secondary"
                   sx={{ py: 4 }}
                 >
                   No tasks match your filters
