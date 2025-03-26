@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { API_URL } from "./config/api.config";
+import API_URL from "./config/api.config";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 import TaskStatistics from "./components/TaskStatistics";
