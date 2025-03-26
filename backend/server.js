@@ -7,7 +7,14 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// Configure CORS with specific options
+app.use(cors({
+  origin: ['https://frontend-b8t3rq6jk-yashsharma2129s-projects.vercel.app', 'http://localhost:3000'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
 app.use(express.json());
 
 if (!process.env.MONGO_URI) {
