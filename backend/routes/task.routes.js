@@ -5,10 +5,17 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
+    console.log("Fetching tasks...");
     const tasks = await Task.find().sort({ createdAt: -1 });
+    console.log(`Successfully fetched ${tasks.length} tasks`);
     res.json(tasks);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching tasks", error: error.message });
+    console.error("Error in GET /api/tasks:", error);
+    res.status(500).json({ 
+      message: "Error fetching tasks", 
+      error: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined 
+    });
   }
 });
 
@@ -30,7 +37,12 @@ router.post("/", async (req, res) => {
     await newTask.save();
     res.status(201).json(newTask);
   } catch (error) {
-    res.status(500).json({ message: "Error creating task", error: error.message });
+    console.error("Error in POST /api/tasks:", error);
+    res.status(500).json({ 
+      message: "Error creating task", 
+      error: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined 
+    });
   }
 });
 
@@ -53,7 +65,12 @@ router.put("/:id", async (req, res) => {
     }
     res.json(updatedTask);
   } catch (error) {
-    res.status(500).json({ message: "Error updating task", error: error.message });
+    console.error("Error in PUT /api/tasks/:id:", error);
+    res.status(500).json({ 
+      message: "Error updating task", 
+      error: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined 
+    });
   }
 });
 
@@ -65,7 +82,12 @@ router.delete("/:id", async (req, res) => {
     }
     res.json({ message: "Task deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Error deleting task", error: error.message });
+    console.error("Error in DELETE /api/tasks/:id:", error);
+    res.status(500).json({ 
+      message: "Error deleting task", 
+      error: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined 
+    });
   }
 });
 

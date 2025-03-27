@@ -55,7 +55,8 @@ function App() {
       setTasks(result.data);
       clearError();
     } catch (err) {
-      handleError("Failed to fetch tasks");
+      console.error("Fetch tasks error:", err.response?.data || err.message);
+      handleError(`Failed to fetch tasks: ${err.response?.data?.message || err.message}`);
     }
   }, []);
 
@@ -73,12 +74,14 @@ function App() {
     if (!validateTask()) return;
     
     try {
-      await axios.post(API_URL, newTask);
+      const response = await axios.post(API_URL, newTask);
+      console.log("Task added:", response.data);
       resetTaskForm();
       fetchTasks();
       showSuccess("Task added successfully!");
     } catch (err) {
-      handleError("Failed to add task");
+      console.error("Add task error:", err.response?.data || err.message);
+      handleError(`Failed to add task: ${err.response?.data?.message || err.message}`);
     }
   };
 
