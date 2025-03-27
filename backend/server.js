@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 
 const corsOptions = {
-  origin: ["https://frontend-mf4ggpm4y-yashsharma2129s-projects.vercel.app", "http://localhost:3000"],
+  origin: ["https://task-manager-cfox.vercel.app", "http://localhost:3000"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
